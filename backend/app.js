@@ -6,11 +6,11 @@ require('dotenv').config();
 
 const { PORT = 3000 } = process.env;
 const { celebrate, Joi, errors } = require('celebrate');
+const cors = require('cors');
 const { userRoute, cardRoute } = require('./routes/index');
 const {
   createUser, login,
 } = require('./controllers/users');
-const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const handleErrors = require('./middlewares/handleErrors');
 const NotFoundError = require('./errors/not_found_err');
