@@ -21,7 +21,16 @@ const reg = /https?:\/\/w{0,3}[\w\-\.~:/?#\[\]@!$&'\(\)*\+,;=]*\#?$/mi;
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true });
 
-app.use(cors());
+app.options('*', cors({
+  // eslint-disable-next-line no-undef
+  origin: allowedCors,
+  credentials: true,
+}));
+app.use(cors({
+  // eslint-disable-next-line no-undef
+  origin: allowedCors,
+  credentials: true,
+}));
 app.use(express.json());
 
 app.use(requestLogger);
