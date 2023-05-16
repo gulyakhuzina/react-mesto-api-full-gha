@@ -3,10 +3,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 const { celebrate, Joi, errors } = require('celebrate');
-const cors = require('cors');
 const { userRoute, cardRoute } = require('./routes/index');
 const {
   createUser, login,
@@ -19,16 +19,17 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 // eslint-disable-next-line no-useless-escape
 const reg = /https?:\/\/w{0,3}[\w\-\.~:/?#\[\]@!$&'\(\)*\+,;=]*\#?$/mi;
 
+const corsOptions = {
+  origin: '*',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+  allowHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', { useNewUrlParser: true });
 
-app.options('*', cors({
-  origin: '*',
-  credentials: true,
-}));
-app.use(cors({
-  origin: '*',
-  credentials: true,
-}));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(requestLogger);
