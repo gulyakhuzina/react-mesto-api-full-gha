@@ -23,6 +23,7 @@ const corsOptions = {
   origin: '*',
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
