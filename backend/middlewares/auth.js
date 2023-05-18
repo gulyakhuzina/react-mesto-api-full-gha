@@ -4,10 +4,6 @@ const AuthorizedError = require('../errors/auth-err');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
-  // const { authorization } = req.headers;
-  // if (!authorization || !authorization.startsWith('Bearer ')) {
-  //   return next(new AuthorizedError('Необходима авторизация'));
-  // }
   if (!req.cookies.jwt) {
     return next(new AuthorizedError('Ошибка авторизации'));
   }
