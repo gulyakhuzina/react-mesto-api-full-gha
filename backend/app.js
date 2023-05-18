@@ -29,7 +29,7 @@ const allowedCors = [
 const corsOptions = {
   origin: allowedCors,
   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-  allowHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   preflightContinue: false,
   optionsSuccessStatus: 204,
