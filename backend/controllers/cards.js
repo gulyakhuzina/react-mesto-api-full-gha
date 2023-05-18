@@ -13,7 +13,7 @@ const setLikes = (req, res, setFunction, next) => {
     .orFail()
     .populate(['owner', 'likes'])
     .then((card) => {
-      res.send({ data: card });
+      res.send(card);
     })
     .catch(next);
 };
@@ -32,7 +32,7 @@ const createCard = (req, res, next) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => card.populate(['owner', 'likes']))
     .then((card) => {
-      res.status(OK).send({ data: card });
+      res.status(OK).send(card);
     })
     .catch(next);
 };
@@ -45,7 +45,7 @@ const deleteCard = (req, res, next) => {
     .then((card) => {
       if (card.owner._id.toString() === req.user._id) {
         card.deleteOne();
-        res.send({ data: card });
+        res.send(card);
       } else throw new ForbiddenError('Доступ запрещен');
     })
     .catch(next);

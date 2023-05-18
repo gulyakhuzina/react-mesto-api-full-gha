@@ -10,7 +10,7 @@ function findById(req, res, next, userId) {
   User.findById(userId)
     .orFail()
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(next);
 }
@@ -19,7 +19,7 @@ function updateInfo(req, res, next, info) {
   User.findByIdAndUpdate(req.user._id, info, { new: true, runValidators: true })
     .orFail()
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch(next);
 }
@@ -27,7 +27,7 @@ function updateInfo(req, res, next, info) {
 const getUsers = (req, res, next) => {
   User.find()
     .then((users) => {
-      res.send({ data: users });
+      res.send(users);
     })
     .catch(next);
 };
@@ -46,7 +46,7 @@ const createUser = (req, res, next) => {
       name, avatar, about, email, password: hash,
     }))
     .then((user) => {
-      res.status(OK).send({ data: user });
+      res.status(OK).send(user);
     })
     .catch(next);
 };

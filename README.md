@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.99.11
+IP 158.160.99.11
 
 Frontend https://mesto.khuzinagulya.nomoredomains.monster/
 
