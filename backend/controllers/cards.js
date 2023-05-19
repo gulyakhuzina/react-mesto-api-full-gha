@@ -11,7 +11,6 @@ const setLikes = (req, res, setFunction, next) => {
     { new: true },
   )
     .orFail()
-    .populate(['owner', 'likes'])
     .then((card) => {
       res.send(card);
     })
@@ -20,7 +19,6 @@ const setLikes = (req, res, setFunction, next) => {
 
 const getCards = (req, res, next) => {
   Card.find()
-    .populate(['owner', 'likes'])
     .then((cards) => {
       res.send(cards);
     })
@@ -30,7 +28,6 @@ const getCards = (req, res, next) => {
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
-    .then((card) => card.populate(['owner', 'likes']))
     .then((card) => {
       res.status(OK).send(card);
     })
@@ -41,7 +38,6 @@ const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findById(cardId)
     .orFail()
-    .populate(['owner', 'likes'])
     .then((card) => {
       if (card.owner._id.toString() === req.user._id) {
         card.deleteOne();

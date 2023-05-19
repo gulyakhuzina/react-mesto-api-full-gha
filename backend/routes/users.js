@@ -5,6 +5,8 @@ const userRoute = express.Router();
 const {
   getUsers, getUser, updateProfile, updateAvatar, getCurrentUser,
 } = require('../controllers/users');
+// eslint-disable-next-line no-useless-escape
+const reg = /https?:\/\/w{0,3}[\w\-\.~:/?#\[\]@!$&'\(\)*\+,;=]*\#?$/mi;
 
 userRoute.get('/', getUsers);
 userRoute.get('/me', getCurrentUser);
@@ -21,8 +23,7 @@ userRoute.patch('/me', celebrate({
 }), updateProfile);
 userRoute.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    // eslint-disable-next-line no-useless-escape
-    avatar: Joi.string().required().regex(/https?:\/\/w{0,3}[\w\-\.~:/?#\[\]@!$&'\(\)*\+,;=]*\#?$/mi),
+    avatar: Joi.string().required().regex(reg),
   }),
 }), updateAvatar);
 
