@@ -24,6 +24,8 @@ const reg = /https?:\/\/w{0,3}[\w\-\.~:/?#\[\]@!$&'\(\)*\+,;=]*\#?$/mi;
 const allowedCors = [
   'http://localhost:3001',
   'https://mesto.khuzinagulya.nomoredomains.monster',
+  'https://praktikum.tk',
+  'http://praktikum.tk',
 ];
 
 const corsOptions = {
