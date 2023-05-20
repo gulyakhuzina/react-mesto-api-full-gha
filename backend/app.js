@@ -73,9 +73,9 @@ app.use(auth);
 app.use('/users', auth, userRoute);
 app.use('/cards', auth, cardRoute);
 
-app.use(errorLogger);
-
 app.use('*', (req, res, next) => next(new NotFoundError('Страница не найдена')));
+
+app.use(errorLogger);
 
 app.use(errors());
 

@@ -44,8 +44,11 @@ const deleteCard = (req, res, next) => {
     .populate(['owner', 'likes'])
     .then((card) => {
       if (card.owner._id.toString() === req.user._id) {
-        card.deleteOne();
-        res.send(card);
+        card.deleteOne()
+          .then((daleteCard) => {
+            res.send(daleteCard);
+          })
+          .catch(next);
       } else throw new ForbiddenError('Доступ запрещен');
     })
     .catch(next);

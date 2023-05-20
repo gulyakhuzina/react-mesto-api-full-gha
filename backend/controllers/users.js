@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const ConflictError = require('../errors/conflict-err');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -48,7 +49,12 @@ const createUser = (req, res, next) => {
     .then((user) => {
       res.status(OK).send(user);
     })
-    .catch(next);
+    .catch((error) => {
+      if (error.code === 11000) {
+        return next(new ConflictError('Такой email уже существует'));
+      }
+      return next(error);
+    });
 };
 
 const updateProfile = (req, res, next) => {
@@ -77,7 +83,6 @@ const login = (req, res, next) => {
           maxAge: 3600000,
           httpOnly: true,
         });
-      res.set('authorization', `Bearer ${token}`);
       res.send({ token });
     })
     .catch(next);
